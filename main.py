@@ -24,3 +24,27 @@ if __name__ == '__main__':
 
     cap.release()
     cv2.destroyAllWindows()
+
+    '''
+    
+    int main() {
+
+        Stream cap = new Stream();
+
+        Trackerd tracker = new Trackerd();
+        Detectord detector = new Detectord();
+
+        Controllerd controller = ne Controller();
+        framed frame = new Framed();    
+
+        while(cap.isOpend()) {
+            if(tracker.isPerson()) {
+                controller.gimbal(tracker.getCoordinates());
+                framed.broadcast(tracker.getCoordinates());
+            } else {
+                tracker.inputPerson(detector.detect());
+            } 
+        }
+    }
+
+    '''
