@@ -38,11 +38,12 @@ class Detector:
                     return self.bounderies
 
     def getCurruntFrameWithBoundingBox(self):
-        label = "{}: {:.2f}%".format(self.CLASSES[self.idx], self.confidence * 100)
-        cv2.rectangle(self.frame, (self.bounderies[0], self.bounderies[1]), 
+        if self.confidence > 0.2:
+            label = "{}: {:.2f}%".format(self.CLASSES[self.idx], self.confidence * 100)
+            cv2.rectangle(self.frame, (self.bounderies[0], self.bounderies[1]), 
                                         (self.bounderies[2], self.bounderies[3]), self.COLORS[self.idx], 2)
-        y = self.bounderies[1] - 15 if self.bounderies[1] - 15 > 15 else self.bounderies[1] + 15
-        cv2.putText(self.frame, label, (self.bounderies[0], y), cv2.FONT_HERSHEY_SIMPLEX, 
+            y = self.bounderies[1] - 15 if self.bounderies[1] - 15 > 15 else self.bounderies[1] + 15
+            cv2.putText(self.frame, label, (self.bounderies[0], y), cv2.FONT_HERSHEY_SIMPLEX, 
                                                                 0.5, self.COLORS[self.idx], 2)
 
         return self.frame
