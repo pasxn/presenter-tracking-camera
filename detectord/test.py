@@ -4,6 +4,7 @@ from imutils.video import FPS
 import time
 import MobileNetSSD
 
+
 if __name__ == '__main__':
     cap = cv2.VideoCapture(0)
     localDetector = MobileNetSSD.Detector()

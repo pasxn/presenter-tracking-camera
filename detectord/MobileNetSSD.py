@@ -24,7 +24,7 @@ class Detector:
                                                 0.007843, (300, 300), 127.5)
 
         self.model.setInput(blob)
-        detections = self.model.forward()
+        detections = self.model.forward()                   
 
         for i in np.arange(0, detections.shape[2]):
             self.confidence = detections[0, 0, i, 2]
