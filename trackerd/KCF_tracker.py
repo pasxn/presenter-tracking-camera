@@ -6,12 +6,11 @@ import sys
 
 class Tracker:
 
-    def Initialize(self):
+    def __init__ (self):
        
-        #create the tracker object
-        tracker = cv2.TrackerKCF_create()
+        #create the tracker variable
+        self.tracker = cv2.TrackerKCF_create()
 
-        return self.tracker
 
 
     def intiate_tracker (self, bbox):
@@ -49,7 +48,7 @@ class Tracker:
             timer = cv2.getTickCount()
 
             # Update tracker
-            ok, bbox = tracker.update(frame)
+            ok, bbox = self.tracker.update(frame)
 
             # Calculate Frames per second (FPS)
             fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer);
