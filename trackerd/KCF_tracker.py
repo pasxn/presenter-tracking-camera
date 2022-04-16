@@ -11,20 +11,22 @@ class Tracker:
         #create the tracker variable
         self.tracker = cv2.TrackerKCF_create()
 
+        # Read video
+        self.video = cv2.VideoCapture(0)
+
+        # Exit if video not opened.
+        if not self.video.isOpened():
+            print("Could not open video")
+            sys.exit()
+
+
 
 
     def intiate_tracker (self, bbox):
        
-        # Read video
-        video = cv2.VideoCapture(0)
-
-        # Exit if video not opened.
-        if not video.isOpened():
-            print("Could not open video")
-            sys.exit()
-
+        
         # Read first frame.
-        ok, frame = video.read()
+        ok, frame = self.video.read()
         if not ok:
             print('Cannot read video file')
             sys.exit()
@@ -35,12 +37,12 @@ class Tracker:
         # Initialize tracker with first frame and bounding box
         ok = self.tracker.init(frame, bbox)
 
-    def tracking ():
+    def tracking(self):
 
         flag = True
         while flag:
             # Read a new frame
-            ok, frame = video.read()
+            ok, frame = self.video.read()
             if not ok:
                 break
 
