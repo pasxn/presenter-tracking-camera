@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import os
 
 class Detector:
     def __init__(self):
@@ -8,8 +9,8 @@ class Detector:
 	                "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
 	                "sofa", "train", "tvmonitor"]
         self.COLORS = np.random.uniform(0, 255, size=(len(self.CLASSES), 3))
-        self.model = cv2.dnn.readNetFromCaffe('model/MobileNetSSD_deploy.prototxt.txt', 
-                                                    'model/MobileNetSSD_deploy.caffemodel')
+        self.model = cv2.dnn.readNetFromCaffe('modeld/MobileNetSSD_deploy.prototxt.txt', 
+                                                    'modeld/MobileNetSSD_deploy.caffemodel')
 
         # intermediate and output parameters
         self.bounderies = None;
@@ -35,6 +36,7 @@ class Detector:
                     (startX, startY, endX, endY) = box.astype("int")
                     self.bounderies = (startX, startY, endX, endY)
 
+                    print("[INFO] detecttion successful")
                     return self.bounderies
 
     def getCurruntFrameWithBoundingBox(self):

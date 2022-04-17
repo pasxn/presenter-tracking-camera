@@ -1,84 +1,38 @@
-#!/usr/bin/env python3
-
 import cv2
 import sys
 
-
 class Tracker:
-
     def __init__ (self):
-       
-        #create the tracker variable
         self.tracker = cv2.TrackerKCF_create()
+        self.isPersonInFrame = False
+        self.frame = None
+        self.inputBbox = None
+        self.bbox = None
 
-        # Read video
-        self.video = cv2.VideoCapture(0)
+    def inputPerson(self, inputBbox):
+        self.isPersonInFrame = True
+        self.inputBbox = inputBbox
 
-        # Exit if video not opened.
-        if not self.video.isOpened():
-            print("Could not open video")
-            sys.exit()
+    def getCoordinates(self, frame):
+        self.frame = cv2.flip(frame,1)
+        self.frame = frame
+        ok = self.tracker.init(self.frame, self.inputBbox)
+        ##########################################
+        ok, self.bbox = self.tracker.update(self.frame)
 
-
-
-
-    def intiate_tracker (self, bbox):
-       
-        
-        # Read first frame.
-        ok, frame = self.video.read()
         if not ok:
-            print('Cannot read video file')
-            sys.exit()
-
-        # Uncomment the line below to select a different bounding box
-        bbox = bbox
-
-        # Initialize tracker with first frame and bounding box
-        ok = self.tracker.init(frame, bbox)
-
-    def tracking(self):
-
-        flag = True
-        while flag:
-            # Read a new frame
-            ok, frame = self.video.read()
-            if not ok:
-                break
-
-            # Start timer
-            timer = cv2.getTickCount()
-
-            # Update tracker
-            ok, bbox = self.tracker.update(frame)
-
-            # Calculate Frames per second (FPS)
-            fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer);
-
-            # Draw bounding box
-            if ok:
-                # Tracking success
-                p1 = (int(bbox[0]), int(bbox[1]))
-                p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
-                cv2.rectangle(frame, p1, p2, (255,0,0), 2, 1)
-                print(bbox)
-            else :
-                # Tracking failure
-                flag = False
+            self.isPersonInFrame = False
+        else:
+            print("[INFO] tracking successful")
+            return self.bbox
             
-            # Display result
-            cv2.imshow("Tracking", frame)
+    def getCurruntFrameWithBoundingBox(self):
+        if self.isPersonInFrame:
+            p1 = (int(self.bbox[0]), int(self.bbox[1]))
+            p2 = (int(self.bbox[0] + self.bbox[2]), int(self.bbox[1] + self.bbox[3]))
+            cv2.rectangle(self.frame, p1, p2, (255,0,0), 2, 1) 
+
+            return self.frame       
                 
-
-           
-
-        # Display tracker type on frame
-        #cv2.putText(frame, "KCF Tracker", (100,20), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (50,170,50),2);
-
-        # Display FPS on frame
-        #cv2.putText(frame, "FPS : " + str(int(fps)), (100,50), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (50,170,50), 2);
-
-      
-        
-
-    
+    def isPerson(self):
+        return self.isPersonInFrame
