@@ -2,11 +2,15 @@ import cv2
 import numpy as np
 from imutils.video import FPS
 import time
-import MobileNetSSD
+import sys
+import os 
+from detectord import MobileNetSSD
+from trackerd import KCF_tracker
 
 if __name__ == '__main__':
     cap = cv2.VideoCapture(0)
     localDetector = MobileNetSSD.Detector()
+    localTracker = KCF_tracker.Tracker()
 
     time.sleep(2.0)
     fps = FPS().start()
@@ -14,10 +18,14 @@ if __name__ == '__main__':
     print("[INFO] start")
     while(cap.isOpened()):
         ret, frame = cap.read()
-        localBounderies = localDetector.detect(frame)
-        print(localBounderies)
 
-        frame = localDetector.getCurruntFrameWithBoundingBox()
+        if localTracker.isPerson():
+            localBounderies = localTracker.getCoordinates(frame)
+            print("[INFO] tracking successful, person bounderies: {}".format(localBounderies))
+            
+            frame = localTracker.getCurruntFrameWithBoundingBox()
+        else:
+            localTracker.inputPerson(localDetector.detect(frame), frame)
 
         cv2.imshow('Lazy Lanes', frame)
 

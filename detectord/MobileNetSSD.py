@@ -36,7 +36,6 @@ class Detector:
                     (startX, startY, endX, endY) = box.astype("int")
                     self.bounderies = (startX, startY, endX, endY)
 
-                    print("[INFO] detecttion successful")
                     return self.bounderies
 
     def getCurruntFrameWithBoundingBox(self):

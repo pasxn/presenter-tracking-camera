@@ -29,7 +29,7 @@ if __name__ == '__main__':
         else:
             localTracker.inputPerson(localDetector.detect(frame))
 
-        cv2.imshow('Lazy Lanes', frame)
+        cv2.imshow('presenter-tracking-camera', frame)
 
         if cv2.waitKey(1) & 0xff == ord('q'):
             break

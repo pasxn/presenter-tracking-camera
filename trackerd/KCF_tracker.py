@@ -9,21 +9,22 @@ class Tracker:
         self.inputBbox = None
         self.bbox = None
 
-    def inputPerson(self, inputBbox):
+    def inputPerson(self, inputBbox, frame):
         self.isPersonInFrame = True
+        # temporary solution
+        inputBbox = (inputBbox[0]-100, inputBbox[1], inputBbox[2] - 100, inputBbox[3])
         self.inputBbox = inputBbox
+        
+        self.frame = cv2.flip(frame,1)
+        ok = self.tracker.init(self.frame, self.inputBbox)
 
     def getCoordinates(self, frame):
         self.frame = cv2.flip(frame,1)
-        self.frame = frame
-        ok = self.tracker.init(self.frame, self.inputBbox)
-        ##########################################
         ok, self.bbox = self.tracker.update(self.frame)
 
         if not ok:
             self.isPersonInFrame = False
         else:
-            print("[INFO] tracking successful")
             return self.bbox
             
     def getCurruntFrameWithBoundingBox(self):
