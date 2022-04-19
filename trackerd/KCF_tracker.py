@@ -11,8 +11,6 @@ class Tracker:
 
     def inputPerson(self, inputBbox, frame):
         self.isPersonInFrame = True
-        # temporary solution
-        inputBbox = (inputBbox[0]-100, inputBbox[1], inputBbox[2] - 100, inputBbox[3])
         self.inputBbox = inputBbox
         
         self.frame = cv2.flip(frame,1)
