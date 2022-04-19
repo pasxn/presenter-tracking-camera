@@ -23,13 +23,13 @@ if __name__ == '__main__':
 
         if localTracker.isPerson():
             localBounderies = localTracker.getCoordinates(frame)
-            print(localBounderies)
+            print("[INFO] Tracker: {}".format(localBounderies))
             
             frame = localTracker.getCurruntFrameWithBoundingBox()
         else:
-            localTracker.inputPerson(localDetector.detect(frame))
+            localTracker.inputPerson(localDetector.detect(frame), frame)
 
-        cv2.imshow('presenter-tracking-camera', frame)
+        cv2.imshow('trackerd test', frame)
 
         if cv2.waitKey(1) & 0xff == ord('q'):
             break
@@ -43,27 +43,3 @@ if __name__ == '__main__':
 
     cap.release()
     cv2.destroyAllWindows()
-
-    '''
-    
-    int main() {
-
-        Stream cap = new Stream();
-
-        Trackerd tracker = new Trackerd();
-        Detectord detector = new Detectord();
-
-        Controllerd controller = ne Controller();
-        framed frame = new Framed();    
-
-        while(cap.isOpend()) {
-            if(tracker.isPerson()) {
-                controller.gimbal(tracker.getCoordinates());
-                framed.broadcast(tracker.getCoordinates());
-            } else {
-                tracker.inputPerson(detector.detect());
-            } 
-        }
-    }
-
-    '''

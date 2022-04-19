@@ -20,7 +20,7 @@ class Tracker:
         self.frame = cv2.flip(frame,1)
         ok, self.bbox = self.tracker.update(self.frame)
 
-        if not ok:
+        if not ok or self.bbox == None:
             self.isPersonInFrame = False
         else:
             return self.bbox
