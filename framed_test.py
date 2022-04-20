@@ -1,5 +1,3 @@
-#!/usr/bin/env python3 
-
 import cv2
 import numpy as np
 from imutils.video import FPS
@@ -14,6 +12,7 @@ if __name__ == '__main__':
     cap = cv2.VideoCapture(0)
     localDetector = MobileNetSSD.Detector()
     localTracker = KCF_tracker.Tracker()
+    localFramer = Camera.Framer()
 
     time.sleep(2.0)
     fps = FPS().start()
@@ -24,13 +23,15 @@ if __name__ == '__main__':
 
         if localTracker.isPerson():
             localBounderies = localTracker.getCoordinates(frame)
-            print(localBounderies)
+            zoomedBounderies = localFramer.calculateCoordinates(localBounderies)
+
+            print("local: {}, zoomed {}".format(localBounderies, zoomedBounderies))
             
-            frame = localTracker.getCurruntFrameWithBoundingBox()
+            # frame = localTracker.getCurruntFrameWithBoundingBox()
         else:
             localTracker.inputPerson(localDetector.detect(frame))
 
-        cv2.imshow('presenter-tracking-camera', frame)
+        # cv2.imshow('presenter-tracking-camera', frame)
 
         if cv2.waitKey(1) & 0xff == ord('q'):
             break
