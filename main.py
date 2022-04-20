@@ -8,6 +8,7 @@ import sys
 import os 
 from detectord import MobileNetSSD
 from trackerd import KCF_tracker
+from framed import Camera
 
 if __name__ == '__main__':
     cap = cv2.VideoCapture(0)
