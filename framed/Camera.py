@@ -6,9 +6,15 @@ class Framer:
         self.width = [i for i in range(20, 641, 20)]
         self.height = [i for i in range(15, 481, 15)]
         self.normalizationFactor = 10 
+        self.prevLocalCoordinates = None
 
     def calculateCoordinates(self, localCoordinates):
-        x1, y1, x2, y2 = localCoordinates[0], localCoordinates[1], localCoordinates[2], localCoordinates[3]
+        if localCoordinates != None:
+            self.prevLocalCoordinates = localCoordinates
+            x1, y1, x2, y2 = localCoordinates[0], localCoordinates[1], localCoordinates[2], localCoordinates[3]
+        else:
+            x1, y1, x2, y2 = self.prevLocalCoordinates[0], self.prevLocalCoordinates[1], self.prevLocalCoordinates[2], self.prevLocalCoordinates[3]
+        
         startx = ( x1 - ((x2 - x1)/self.normalizationFactor) )
         starty = ( y1 - ((y2 - y1)/self.normalizationFactor) )
 
