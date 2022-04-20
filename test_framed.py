@@ -33,7 +33,7 @@ if __name__ == '__main__':
         else:
             localTracker.inputPerson(localDetector.detect(frame), frame)
 
-        cv2.imshow('presenter-tracking-camera', outputFrame)
+        cv2.imshow('framed test', outputFrame)
 
         if cv2.waitKey(1) & 0xff == ord('q'):
             break
