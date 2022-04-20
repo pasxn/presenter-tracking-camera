@@ -25,9 +25,10 @@ if __name__ == '__main__':
             localBounderies = localTracker.getCoordinates(frame)
             zoomedBounderies = localFramer.calculateCoordinates(localBounderies)
 
+            frame = localFramer(localBounderies, frame)
+
             print("local: {}, zoomed {}".format(localBounderies, zoomedBounderies))
             
-            # frame = localTracker.getCurruntFrameWithBoundingBox()
         else:
             localTracker.inputPerson(localDetector.detect(frame))
 

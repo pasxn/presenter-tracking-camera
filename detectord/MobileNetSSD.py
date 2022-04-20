@@ -13,7 +13,7 @@ class Detector:
                                                     'modeld/MobileNetSSD_deploy.caffemodel')
 
         # intermediate and output parameters
-        self.bounderies = None;
+        self.bounderies = None
         self.frame = None
         self.confidence = None
         self.idx = None

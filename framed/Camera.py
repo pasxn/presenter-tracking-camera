@@ -20,4 +20,8 @@ class Framer:
 
         return calculatedCoordinates
 
-    
+    def frame(self, localCoordinates, frame):
+        zoomedCoordinates = self.calculateCoordinates(localCoordinates)
+        croppedFrame = frame[localCoordinates[1]:localCoordinates[3], localCoordinates[0], localCoordinates[2]]
+
+        return croppedFrame
