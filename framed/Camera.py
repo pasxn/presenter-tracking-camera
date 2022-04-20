@@ -3,25 +3,33 @@ import numpy as np
 
 class Framer:
     def __init__(self):
-        self.width = [i for i in range(20, 641, 20)] 
+        self.width = [i for i in range(20, 641, 20)]
         self.height = [i for i in range(15, 481, 15)]
-        self.normalizationFactor = 6 
+        self.normalizationFactor = 10 
 
     def calculateCoordinates(self, localCoordinates):
         x1, y1, x2, y2 = localCoordinates[0], localCoordinates[1], localCoordinates[2], localCoordinates[3]
         startx = ( x1 - ((x2 - x1)/self.normalizationFactor) )
         starty = ( y1 - ((y2 - y1)/self.normalizationFactor) )
 
-        for i in range(self.width):
-            if self.width[i] > ((x2 - x1) + 8):
-                index =  i
+        if startx < 0: startx = 0
+        if starty < 0: starty = 0
+        if x2 > 640: x2 = 640
+        if y2 > 480: x2 = 480
 
-        calculatedCoordinates = (startx, starty, startx + self.width[index], starty + self.height[index])
+        for i in range(len(self.width)):
+            if self.width[i] > ((x2 - x1)):
+                index =  i+1
+                break
 
+        calculatedCoordinates = (int(startx), int(starty), int(startx + self.width[index]), int(starty + self.height[index]))
+    
         return calculatedCoordinates
 
     def frame(self, localCoordinates, frame):
+        frame = cv2.flip(frame,1)
         zoomedCoordinates = self.calculateCoordinates(localCoordinates)
-        croppedFrame = frame[localCoordinates[1]:localCoordinates[3], localCoordinates[0], localCoordinates[2]]
+        croppedFrame = frame[zoomedCoordinates[1]:zoomedCoordinates[3], zoomedCoordinates[0]:zoomedCoordinates[2]]
+        croppedFrame = cv2.resize(croppedFrame,(640,480),fx=0,fy=0, interpolation = cv2.INTER_CUBIC)
 
         return croppedFrame

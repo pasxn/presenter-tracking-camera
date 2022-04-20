@@ -14,6 +14,7 @@ if __name__ == '__main__':
     cap = cv2.VideoCapture(0)
     localDetector = MobileNetSSD.Detector()
     localTracker = KCF_tracker.Tracker()
+    localFramer = Camera.Framer()
 
     time.sleep(2.0)
     fps = FPS().start()
@@ -21,16 +22,17 @@ if __name__ == '__main__':
     print("[INFO] start")
     while(cap.isOpened()):
         ret, frame = cap.read()
+        outputFrame = cv2.flip(frame,1)
 
         if localTracker.isPerson():
             localBounderies = localTracker.getCoordinates(frame)
-            print("[INFO] Tracker: {}".format(localBounderies))
+            outputFrame = localFramer.frame(localBounderies, frame)
             
-            frame = localTracker.getCurruntFrameWithBoundingBox()
         else:
             localTracker.inputPerson(localDetector.detect(frame), frame)
 
-        cv2.imshow('trackerd test', frame)
+        cv2.imshow('presenter-tracking-camera (output)', outputFrame)
+        cv2.imshow('presenter-tracking-camera (source)', cv2.flip(frame, 1))
 
         if cv2.waitKey(1) & 0xff == ord('q'):
             break

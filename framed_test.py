@@ -20,19 +20,20 @@ if __name__ == '__main__':
     print("[INFO] start")
     while(cap.isOpened()):
         ret, frame = cap.read()
+        outputFrame = cv2.flip(frame,1)
 
         if localTracker.isPerson():
             localBounderies = localTracker.getCoordinates(frame)
             zoomedBounderies = localFramer.calculateCoordinates(localBounderies)
 
-            frame = localFramer(localBounderies, frame)
+            outputFrame = localFramer.frame(localBounderies, frame)
 
             print("local: {}, zoomed {}".format(localBounderies, zoomedBounderies))
             
         else:
-            localTracker.inputPerson(localDetector.detect(frame))
+            localTracker.inputPerson(localDetector.detect(frame), frame)
 
-        # cv2.imshow('presenter-tracking-camera', frame)
+        cv2.imshow('presenter-tracking-camera', outputFrame)
 
         if cv2.waitKey(1) & 0xff == ord('q'):
             break
@@ -46,27 +47,3 @@ if __name__ == '__main__':
 
     cap.release()
     cv2.destroyAllWindows()
-
-    '''
-    
-    int main() {
-
-        Stream cap = new Stream();
-
-        Trackerd tracker = new Trackerd();
-        Detectord detector = new Detectord();
-
-        Controllerd controller = ne Controller();
-        framed frame = new Framed();    
-
-        while(cap.isOpend()) {
-            if(tracker.isPerson()) {
-                controller.gimbal(tracker.getCoordinates());
-                framed.broadcast(tracker.getCoordinates());
-            } else {
-                tracker.inputPerson(detector.detect());
-            } 
-        }
-    }
-
-    '''
