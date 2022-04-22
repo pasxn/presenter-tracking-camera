@@ -5,13 +5,13 @@ import time
 import sys
 import os 
 from detectord import MobileNetSSD
-from trackerd import KCF_tracker
+from trackerd import KCFtracker
 from framed import Camera
 
 if __name__ == '__main__':
     cap = cv2.VideoCapture(0)
     localDetector = MobileNetSSD.Detector()
-    localTracker = KCF_tracker.Tracker()
+    localTracker = KCFtracker.Tracker()
     localFramer = Camera.Framer()
 
     time.sleep(2.0)
