@@ -1,6 +1,6 @@
 # Presenter Tracking Camera
 
-This repository contains the software for s low-cost video camera for hybrid teaching with presenter movement detection, localization & tracking capability.
+This repository contains the software for a low-cost video camera for hybrid teaching with presenter movement detection, localization & tracking capability.
 
 ### Installation
 1. Clone this repo
