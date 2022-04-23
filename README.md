@@ -10,7 +10,7 @@ cd presenter-tracking-camera
  ```
 2. Install dependencies
 ```sh
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 ### Testing each module
 To test each module seperately run the test scripts.
