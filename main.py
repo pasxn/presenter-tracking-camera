@@ -4,8 +4,6 @@ import cv2
 import numpy as np
 from imutils.video import FPS
 import time
-import sys
-import os 
 from detectord import MobileNetSSD
 from trackerd import KCFtracker
 from framed import Camera
