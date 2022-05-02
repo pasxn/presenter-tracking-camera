@@ -1,5 +1,4 @@
 import cv2
-import sys
 
 class Tracker:
     def __init__ (self):

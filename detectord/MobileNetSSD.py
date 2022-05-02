@@ -1,6 +1,5 @@
 import numpy as np
 import cv2
-import os
 
 class Detector:
     def __init__(self):
