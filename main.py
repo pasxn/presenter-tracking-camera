@@ -26,8 +26,7 @@ if __name__ == '__main__':
 
         localBounderies = localDetector.detect(frame)
         localController.sendCommands(localBounderies)
-        outputFrame = localFramer.frame(localBounderies, frame)
-            
+        outputFrame = localFramer.frame(localBounderies, frame)         
 
         cv2.imshow('presenter-tracking-camera (output)', outputFrame)
         cv2.imshow('presenter-tracking-camera (source)', cv2.flip(frame, 1))
