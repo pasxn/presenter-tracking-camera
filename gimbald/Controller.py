@@ -17,4 +17,7 @@ class GimbalController:
             return self.MIDDLE
 
     def sendCommands(self, coordinates):
-        print("Left: {}, Right: {}, Output: {}".format(coordinates[0], coordinates[2], self.calculateCommands(coordinates)))
+        try:
+            print("Left: {}, Right: {}, Output: {}".format(coordinates[0], coordinates[2], self.calculateCommands(coordinates)))
+        except:
+            pass
