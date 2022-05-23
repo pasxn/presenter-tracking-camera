@@ -24,10 +24,13 @@ if __name__ == '__main__':
         ret, frame = cap.read()
         outputFrame = cv2.flip(frame,1)
 
-        localBounderies = localDetector.detect(frame)
-        localController.sendCommands(localBounderies)
-        outputFrame = localFramer.frame(localBounderies, frame)
+        if localTracker.isPerson():
+            localBounderies = localTracker.getCoordinates(frame)
+            localController.sendCommands(localBounderies)
+            outputFrame = localFramer.frame(localBounderies, frame)
             
+        else:
+            localTracker.inputPerson(localDetector.detect(frame), frame)
 
         cv2.imshow('presenter-tracking-camera (output)', outputFrame)
         cv2.imshow('presenter-tracking-camera (source)', cv2.flip(frame, 1))
