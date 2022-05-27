@@ -7,12 +7,15 @@ class GimbalController:
         self.RIGHTBOUNDERY = 520    
 
     def calculateCommands(self, coordinates):
-        if coordinates[0] < self.LEFTBOUNDERY:
+        if coordinates[0] < self.LEFTBOUNDERY and coordinates[2] > self.RIGHTBOUNDERY:
+            return self.MIDDLE
+        
+        elif coordinates[0] < self.LEFTBOUNDERY:
             return self.LEFT
 
-        elif coordinates[2] > self.LEFTBOUNDERY:
+        elif coordinates[2] > self.RIGHTBOUNDERY:
             return self.RIGHT
-        
+
         else:
             return self.MIDDLE
 
