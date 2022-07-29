@@ -1,3 +1,7 @@
 #main {
     text-align: center;
 }
+
+#msg {
+    display:inline-block;
+}
