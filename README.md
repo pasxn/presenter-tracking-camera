@@ -19,6 +19,11 @@ python3 test_detectord.py
 python3 test_trackerd.py
 python3 test_framed.py
 python3 test_gimbald.py
+python3 test_cvtracker_stack.py
+```
+### Visualizing the output
+```sh
+python3 visualize.py
 ```
 ### Running on your local computer
 ```sh
