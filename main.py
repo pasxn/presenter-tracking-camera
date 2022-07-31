@@ -4,14 +4,14 @@ import cv2
 import numpy as np
 from imutils.video import FPS
 import time
-from detectord import MobileNetSSD
+from detectord import MobileNetSSD_V2
 from trackerd import KalmanFilter
 from framed import Camera
 from gimbald import Controller
 
 if __name__ == '__main__':
-    cap = cv2.VideoCapture(0)
-    localDetector = MobileNetSSD.Detector()
+    cap = cv2.VideoCapture(0); cap.set(3,640); cap.set(4,480)
+    localDetector = MobileNetSSD_V2.Detector()
     localTracker = KalmanFilter.Kalmanfilter(0.1, 1, 1, 1, 0.1,0.1)
     localFramer = Camera.Framer()
     localController = Controller.GimbalController()
