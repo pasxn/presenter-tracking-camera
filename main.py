@@ -8,18 +8,20 @@ from detectord import MobileNetSSD_V2
 from trackerd import KalmanFilter
 from framed import Camera
 from gimbald import Controller
+from loggerd import Logger
 
-if __name__ == '__main__':
+def vision():
     cap = cv2.VideoCapture(0); cap.set(3,640); cap.set(4,480)
     localDetector = MobileNetSSD_V2.Detector()
     localTracker = KalmanFilter.Kalmanfilter(0.1, 1, 1, 1, 0.1,0.1)
     localFramer = Camera.Framer()
     localController = Controller.GimbalController()
+    loggr = Logger.Datalogger("vision")
 
     time.sleep(2.0)
     fps = FPS().start()
     
-    print("[INFO] start")
+    loggr.LOG("start")
     while(cap.isOpened()):
         ret, frame = cap.read()
         outputFrame = cv2.flip(frame,1)
@@ -62,8 +64,11 @@ if __name__ == '__main__':
     
     fps.stop()
 
-    print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
-    print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
+    loggr.LOG("elapsed time: {:.2f}".format(fps.elapsed()))
+    loggr.LOG("approx. FPS: {:.2f}".format(fps.fps()))
 
     cap.release()
     cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    vision()
