@@ -26,6 +26,8 @@ python3 test_cvtracker_stack.py
 python3 visualize.py
 ```
 ### Running on your local computer
+Execute
 ```sh
 ./main.py
 ```
+Observe the stream output on ```<local IP address of the device>/8000/streamd```
