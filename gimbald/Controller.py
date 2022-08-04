@@ -1,5 +1,14 @@
+import platform
+import serial
+
 class GimbalController:
     def __init__(self):
+        self.arch = platform.uname()[-1]
+        if  self.arch != 'x86_64':
+            scom = serial.Serial ("/dev/ttyS0", 9600)
+        else:
+            pass
+
         self.LEFT = -1
         self.MIDDLE = 0
         self.RIGHT = 1
@@ -20,7 +29,10 @@ class GimbalController:
             return self.MIDDLE
 
     def sendCommands(self, coordinates):
-        try:
-            print("Left: {}, Right: {}, Output: {}".format(coordinates[0], coordinates[2], self.calculateCommands(coordinates)))
-        except:
-            pass
+        if  self.arch == 'x86_64':
+            try:
+                print("Left: {}, Right: {}, Output: {}".format(coordinates[0], coordinates[2], self.calculateCommands(coordinates)))
+            except:
+                pass
+        else:
+            pass   

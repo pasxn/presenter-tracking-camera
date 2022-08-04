@@ -5,7 +5,7 @@ import numpy as np
 from imutils.video import FPS
 import time
 import multiprocessing
-from detectord import MobileNetSSD_V2
+from detectord import MobileNetSSD
 from trackerd import KalmanFilter
 from framed import Camera
 from gimbald import Controller
@@ -15,16 +15,16 @@ from loggerd import Logger
 # Keep track of processes
 PROCESSES = []
 
+# Keep track of FPS
+fps = FPS().start()
+
 def vision(manager):
     cap = cv2.VideoCapture(0); cap.set(3,640); cap.set(4,480)
-    localDetector = MobileNetSSD_V2.Detector()
+    localDetector = MobileNetSSD.Detector()
     localTracker = KalmanFilter.Kalmanfilter(0.1, 1, 1, 1, 0.1,0.1)
     localFramer = Camera.Framer()
     localController = Controller.GimbalController()
     loggr = Logger.Datalogger("vision")
-
-    time.sleep(2.0)
-    fps = FPS().start()
     
     loggr.LOG("start")
     while(cap.isOpened()):
@@ -57,15 +57,10 @@ def vision(manager):
         kalmanbounderies = (ksX, ksY,keX, keY)
 
         localController.sendCommands(kalmanbounderies)
-        outputFrame = localFramer.frame(kalmanbounderies, frame)   
-
-        cv2.imshow('presenter-tracking-camera (output)', outputFrame)      
+        outputFrame = localFramer.frame(kalmanbounderies, frame)      
 
         encodeParameter = [int(cv2.IMWRITE_JPEG_QUALITY), 65]
         manager[0] = cv2.imencode('.jpg', outputFrame, encodeParameter)[1]
-
-        if cv2.waitKey(1) & 0xff == ord('q'):
-            break
 
         fps.update()
     
