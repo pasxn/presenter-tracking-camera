@@ -7,6 +7,7 @@ class Framer:
         self.height = [i for i in range(15, 481, 15)]
         self.normalizationFactor = 10 
         self.prevLocalCoordinates = None
+        self.calculatedCoordinates = None
 
     def calculateCoordinates(self, localCoordinates):
         if localCoordinates != None:
@@ -27,10 +28,12 @@ class Framer:
             if self.width[i] > ((x2 - x1)):
                 index =  i+1
                 break
-
-        calculatedCoordinates = (int(startx), int(starty), int(startx + self.width[index]), int(starty + self.height[index]))
-    
-        return calculatedCoordinates
+        try:
+            self.calculatedCoordinates = (int(startx), int(starty), int(startx + self.width[index]), int(starty + self.height[index]))
+        except:
+            pass
+        
+        return self.calculatedCoordinates
 
     def frame(self, localCoordinates, frame):
         frame = cv2.flip(frame,1)
