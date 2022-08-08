@@ -29,10 +29,10 @@ class GimbalController:
             return self.MIDDLE
 
     def sendCommands(self, coordinates):
-        if  self.arch == 'x86_64':
-            try:
+        try:
+            if  self.arch == 'x86_64':
                 print("Left: {}, Right: {}, Output: {}".format(coordinates[0], coordinates[2], self.calculateCommands(coordinates)))
-            except:
+            else:
                 pass
-        else:
-            pass   
+        except:
+            pass
