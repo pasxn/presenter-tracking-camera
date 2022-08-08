@@ -29,7 +29,6 @@ def vision(manager):
     loggr.LOG("start")
     while(cap.isOpened()):
         ret, frame = cap.read()
-        outputFrame = cv2.flip(frame,1)
 
         localBounderies = localDetector.detect(frame)
 
