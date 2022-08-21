@@ -36,7 +36,6 @@ class Framer:
         return self.calculatedCoordinates
 
     def frame(self, localCoordinates, frame):
-        frame = cv2.flip(frame,1)
         zoomedCoordinates = self.calculateCoordinates(localCoordinates)
         croppedFrame = frame[zoomedCoordinates[1]:zoomedCoordinates[3], zoomedCoordinates[0]:zoomedCoordinates[2]]
         croppedFrame = cv2.resize(croppedFrame,(640,480),fx=0,fy=0, interpolation = cv2.INTER_CUBIC)

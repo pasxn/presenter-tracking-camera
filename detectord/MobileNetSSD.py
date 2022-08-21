@@ -18,7 +18,7 @@ class Detector:
         self.idx = None
 
     def detect(self, frame):
-        self.frame = cv2.flip(frame,1)
+        self.frame = frame
         (h, w) = self.frame.shape[:2]
         blob = cv2.dnn.blobFromImage(cv2.resize(self.frame, (300, 300)), 
                                                 0.007843, (300, 300), 127.5)
