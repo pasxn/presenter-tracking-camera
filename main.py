@@ -33,12 +33,15 @@ def vision(manager):
         localBounderies = localDetector.detect(frame)
 
         try: 
-            midX = localBounderies[0] + ((localBounderies[2] - localBounderies[0])/2)
-            midY = localBounderies[1] + ((localBounderies[3] - localBounderies[1])/2)     
+            localBounderies_0, localBounderies_1 = localBounderies[0], localBounderies[1]
+            localBounderies_2, localBounderies_3 = localBounderies[2], localBounderies[3]
+            
+            midX = localBounderies_0 + ((localBounderies_1 - localBounderies_0)/2)
+            midY = localBounderies_1 + ((localBounderies_3 - localBounderies_1)/2)     
 
-            bboxLength = localBounderies[2] - localBounderies[0]
-            bboxHeight = localBounderies[3] - localBounderies[1]          
-        except: 
+            bboxLength = localBounderies_2 - localBounderies_0
+            bboxHeight = localBounderies_3 - localBounderies_1          
+        except:         
             pass
 
         centers = [np.array([[midX], [midY]])]
