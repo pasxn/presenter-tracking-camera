@@ -29,15 +29,17 @@ def vision(manager):
     loggr.LOG("start")
     while(cap.isOpened()):
         ret, frame = cap.read()
+        frame = cv2.flip(frame,1)
 
         localBounderies = localDetector.detect(frame)
 
         try: 
-            midX = localBounderies[0] + ((localBounderies[2] - localBounderies[0])/2)
-            midY = localBounderies[1] + ((localBounderies[3] - localBounderies[1])/2)     
+            loclBound_0, loclBound_1, loclBound_2, loclBound_3 = localBounderies[0], localBounderies[1], localBounderies[2], localBounderies[3]
+            midX = loclBound_0 + ((loclBound_2 - loclBound_0)/2)
+            midY = loclBound_1 + ((loclBound_3 - loclBound_1)/2)     
 
-            bboxLength = localBounderies[2] - localBounderies[0]
-            bboxHeight = localBounderies[3] - localBounderies[1]          
+            bboxLength = loclBound_2 - loclBound_0
+            bboxHeight = loclBound_3 - loclBound_1          
         except: 
             pass
 

@@ -18,7 +18,7 @@ class Detector:
         self.frame = None
 
     def detect(self, frame):
-        self.frame = cv2.flip(frame,1)
+        self.frame = frame
         classIds, confs, bbox = self.model.detect(self.frame,confThreshold = 0.45, nmsThreshold = 0.2)
 
         if len(classIds) != 0:
