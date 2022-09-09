@@ -30,4 +30,4 @@ Execute
 ```sh
 ./main.py
 ```
-Observe the stream output on ```<local IP address of the device>/8000/streamd```
+Observe the stream output on ```<local IP address of the device>:8000/streamd```
